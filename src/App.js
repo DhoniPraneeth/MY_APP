@@ -9,25 +9,18 @@ import Immer from './ImmutableProvider/Immer'
 import store from './store';
 import { type } from '@testing-library/user-event/dist/type';     
 import Bugs from './Bugs';
-
+import * as actions from './Actions/actionTypes'
+import * as creator from './Actions/ActionCreatorBug' 
 function App() {
-  store.subscribe(()=>{
-    console.log("Subscribed:",store.getState());
-  });
+  
+      store.subscribe(()=>{
+        console.log("Subscribed:",store.getState());
+        console.log(store);
+      });
 
-  store.dispatch({
-    type : "BUG_ADDED",
-    payload : {
-      description:"Bug added"
-    }
-  });
+      store.dispatch(creator.add());
 
-  store.dispatch({
-    type : "BUG_RESOLVED",
-    payload : {
-      id:1
-    }
-  });
+      store.dispatch(creator.resolve(1));
 
   return (
     <>
