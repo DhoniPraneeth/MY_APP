@@ -6,15 +6,32 @@ import Objects from './functional/Objects';
 import Arrays from './functional/Arrays';
 import Immutable from './ImmutableProvider/Immutable';
 import Immer from './ImmutableProvider/Immer'
+import store from './store';
+import { type } from '@testing-library/user-event/dist/type';     
+import Bugs from './Bugs';
+
 function App() {
+  store.subscribe(()=>{
+    console.log("Subscribed:",store.getState());
+  });
+
+  store.dispatch({
+    type : "BUG_ADDED",
+    payload : {
+      description:"Bug added"
+    }
+  });
+
+  store.dispatch({
+    type : "BUG_RESOLVED",
+    payload : {
+      id:1
+    }
+  });
+
   return (
     <>
-      <FunctionalComposing></FunctionalComposing>
-      <Currying></Currying>
-      <Objects></Objects>
-      <Arrays></Arrays>
-      <Immutable></Immutable>
-      <Immer></Immer>
+      <Bugs></Bugs>
     </>
   );
 }

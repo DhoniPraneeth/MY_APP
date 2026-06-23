@@ -1,0 +1,25 @@
+export default function reducer(state=[],action){
+    let lastId=0;
+    switch(action.type){
+        case "BUG_ADDED":{
+            const val=[
+                ...state,
+                {
+                    id: ++lastId,
+                    description: action.payload.description,
+                    resolved: false
+                }
+            ];
+            // console.log(val);
+            return val; 
+            }
+        case "BUG_REMOVED":{
+            return state.filter(bug=>bug.id!=action.payload.id);
+            }
+        case "BUG_RESOLVED":{
+            return state.filter(bug=>bug.id===action.payload.id)
+                        .map(bug=>bug = {...bug,resolved:true});
+        }
+        default: return state;       
+    }
+}
